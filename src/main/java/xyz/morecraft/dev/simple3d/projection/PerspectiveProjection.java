@@ -1,6 +1,13 @@
 package xyz.morecraft.dev.simple3d.projection;
 
+import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
+import xyz.morecraft.dev.simple3d.engine.tool.Camera;
+
 public class PerspectiveProjection extends Projection {
+
+    public PerspectiveProjection(EngineConfiguration configuration, Camera camera) {
+        super(configuration, camera);
+    }
 
     @Override
     public double[][] getMatrix(double left, double right, double bottom, double top, double near, double far) {

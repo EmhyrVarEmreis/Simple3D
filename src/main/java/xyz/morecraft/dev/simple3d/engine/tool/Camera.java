@@ -11,8 +11,12 @@ public class Camera {
     private double horizontalDirectionZ;
     private double verticalDirectionZ;
 
+    public Camera(Point position) {
+        this.position = position;
+    }
+
     public Camera() {
-        this.position = new Point(0, 0, 0);
+        this(new Point(0, 0, 0));
         this.horizontalDirectionX = 0;
         this.verticalDirectionX = 0;
         this.horizontalDirectionY = 0;
@@ -75,6 +79,19 @@ public class Camera {
 
     public void setVerticalDirectionZ(double verticalDirectionZ) {
         this.verticalDirectionZ = verticalDirectionZ;
+    }
+
+    @Override
+    public String toString() {
+        return "Camera{" +
+                "position=" + position +
+                ", horizontalDirectionX=" + horizontalDirectionX +
+                ", verticalDirectionX=" + verticalDirectionX +
+                ", horizontalDirectionY=" + horizontalDirectionY +
+                ", verticalDirectionY=" + verticalDirectionY +
+                ", horizontalDirectionZ=" + horizontalDirectionZ +
+                ", verticalDirectionZ=" + verticalDirectionZ +
+                '}';
     }
 
 }

@@ -1,30 +1,30 @@
 package xyz.morecraft.dev.simple3d.engine.tool;
 
-public class Point {
+public class CalculatedPoint {
 
-    private double x;
-    private double y;
+    private int x;
+    private int y;
     private double z;
 
-    public Point(double x, double y, double z) {
+    public CalculatedPoint(int x, int y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -36,8 +36,8 @@ public class Point {
         this.z = z;
     }
 
-    public static Point from(Point old) {
-        return new Point(old.x, old.y, old.z);
+    public static CalculatedPoint from(CalculatedPoint old) {
+        return new CalculatedPoint(old.x, old.y, old.z);
     }
 
     @Override
@@ -58,15 +58,15 @@ public class Point {
             return false;
         }
 
-        Point point = (Point) o;
+        CalculatedPoint that = (CalculatedPoint) o;
 
-        if (Double.compare(point.x, x) != 0) {
+        if (x != that.x) {
             return false;
         }
-        if (Double.compare(point.y, y) != 0) {
+        if (y != that.y) {
             return false;
         }
-        return Double.compare(point.z, z) == 0;
+        return Double.compare(that.z, z) == 0;
 
     }
 
@@ -74,10 +74,8 @@ public class Point {
     public int hashCode() {
         int result;
         long temp;
-        temp = Double.doubleToLongBits(x);
-        result = (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = x;
+        result = 31 * result + y;
         temp = Double.doubleToLongBits(z);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;

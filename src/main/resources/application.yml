@@ -1,6 +1,6 @@
 engine:
   width: 800
   height: 600
-  max-fps: 60
-  rotation-speed: 0.2
-  movement-speed: 0.2
+  max-fps: 30
+  rotation-speed: 0.05
+  movement-speed: 0.05

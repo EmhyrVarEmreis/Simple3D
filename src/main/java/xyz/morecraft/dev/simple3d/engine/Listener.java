@@ -56,9 +56,9 @@ public class Listener implements KeyListener {
             camera.getPosition().setX(camera.getPosition().getX() + configuration.getMovementSpeed());
         }
         if (keySet.contains(KeyEvent.VK_Q)) {
-            camera.getPosition().setX(camera.getPosition().getY() - configuration.getMovementSpeed());
+            camera.getPosition().setY(camera.getPosition().getY() - configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_E)) {
-            camera.getPosition().setX(camera.getPosition().getY() + configuration.getMovementSpeed());
+            camera.getPosition().setY(camera.getPosition().getY() + configuration.getMovementSpeed());
         }
     }
 

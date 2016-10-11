@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
+import xyz.morecraft.dev.simple3d.engine.PixelScreen;
 import xyz.morecraft.dev.simple3d.engine.Screen;
 
 import java.util.concurrent.TimeUnit;
@@ -58,7 +59,7 @@ public class RenderThread implements Runnable {
             now = System.nanoTime();
             if (now - lastTime >= nsFps) {
                 lastTime = now;
-                screen.update(window.getPixels());
+                screen.update();
             }
             if (now - lastTimeKey >= nsKey) {
                 lastTimeKey = now;

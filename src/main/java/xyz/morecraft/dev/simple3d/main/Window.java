@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
+import xyz.morecraft.dev.simple3d.engine.PixelScreen;
 import xyz.morecraft.dev.simple3d.engine.Screen;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class Window extends JFrame {
     private int[] pixels;
 
     @Autowired
-    public Window(EngineConfiguration configuration, Listener listener, Screen screen) throws HeadlessException {
+    public Window(EngineConfiguration configuration, Listener listener) throws HeadlessException {
         setSize(configuration.getWidth(), configuration.getHeight());
         setResizable(false);
         setTitle("Simple3D");
