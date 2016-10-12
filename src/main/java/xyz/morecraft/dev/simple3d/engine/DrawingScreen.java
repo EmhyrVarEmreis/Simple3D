@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.tool.*;
+import xyz.morecraft.dev.simple3d.engine.tool.Point;
 import xyz.morecraft.dev.simple3d.engine.tool.Polygon;
 import xyz.morecraft.dev.simple3d.main.Window;
 import xyz.morecraft.dev.simple3d.projection.Projection;
@@ -19,12 +20,18 @@ public class DrawingScreen extends Screen {
     public DrawingScreen(EngineConfiguration configuration, Projection projection, Camera camera, Window window, World world) {
         super(configuration, projection, camera, window, world);
         this.g2d = window.getImage().createGraphics();
+        projection.initMatrix(50, configuration.getWidth() * 1.0 / configuration.getHeight(), 1, 100);
     }
 
-    public void update() {
-        getProjection().initMatrix(-20, 20, -20, 20, 1, 20);
+    private int iii = 0;
 
-        log.debug(getCamera().getPosition().toString());
+    public void update() {
+
+        if (iii % 10 == 0) {
+            log.debug(new Point(Math.round(getCamera().getPosition().getX() * 100.0) / 100.0, Math.round(getCamera().getPosition().getY() * 100.0) / 100.0, Math.round(getCamera().getPosition().getZ() * 100.0) / 100.0).toString());
+        }
+        iii++;
+
 
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, getConfiguration().getWidth(), getConfiguration().getHeight());

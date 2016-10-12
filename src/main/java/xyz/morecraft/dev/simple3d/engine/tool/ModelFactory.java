@@ -17,7 +17,7 @@ public final class ModelFactory {
         Vertex v8 = new Vertex(new Point(position.getX() + size, position.getY() + size, position.getZ() + size));
 
         model.addNewPolygon(Polygon.from(v1, v2, v4, v3));
-        model.addNewPolygon(Polygon.from(v5, v5, v8, v7));
+        model.addNewPolygon(Polygon.from(v5, v6, v8, v7));
         model.addNewPolygon(Polygon.from(v1, v2, v6, v5));
         model.addNewPolygon(Polygon.from(v3, v4, v8, v7));
         model.addNewPolygon(Polygon.from(v1, v3, v7, v5));

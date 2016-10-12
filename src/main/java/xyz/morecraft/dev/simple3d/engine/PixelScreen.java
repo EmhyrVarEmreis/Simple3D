@@ -29,7 +29,7 @@ public class PixelScreen extends Screen {
             pixels[i] = Color.GRAY.getRGB();
         }
 
-        getProjection().initMatrix(-20, 20, -20, 20, 1, 20);
+        //getProjection().initMatrix(-20, 20, -20, 20, 1, 20);
 
         getWorld().getModelList().forEach(
                 model -> drawModel(pixels, model)

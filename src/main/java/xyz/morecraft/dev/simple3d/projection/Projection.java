@@ -21,11 +21,12 @@ public abstract class Projection {
         this.camera = camera;
     }
 
-    public void initMatrix(double left, double right, double bottom, double top, double near, double far) {
-        matrix = getMatrix(left, right, bottom, top, near, far);
+    public void initMatrix(final double fovy, final double aspect, final double near, final double far) {
+        matrix = getMatrix(fovy, aspect, near, far);
+        //matrix = getMatrix2(50, configuration.getWidth() * 1.0 / configuration.getHeight(), 1, 100);
     }
 
-    public abstract double[][] getMatrix(double left, double right, double bottom, double top, double near, double far);
+    public abstract double[][] getMatrix(final double fovy, final double aspect, final double near, final double far);
 
     public CalculatedPoint calculatePoint(Point point) {
         point = Point.from(point);
@@ -56,8 +57,8 @@ public abstract class Projection {
 
         CalculatedPoint ret = new CalculatedPoint((int) x, (int) y, z);
 
-        ret.setX(ret.getX() + configuration.getWidth() / 2 );
-        ret.setY(ret.getY() + configuration.getHeight() / 4 );
+        ret.setX(ret.getX() + configuration.getWidth() / 2 - (int)camera.getPosition().getX());
+        ret.setY(ret.getY() + configuration.getHeight() / 2 - (int)camera.getPosition().getY());
 
         //log.info("{} -> {}", point, ret);
 

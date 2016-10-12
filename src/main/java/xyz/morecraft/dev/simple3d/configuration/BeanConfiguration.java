@@ -29,8 +29,9 @@ public class BeanConfiguration {
     public World defaultWorld() {
         World world = new World();
 
-        world.addModel(ModelFactory.createCube(new Point(5, 5, 5), 5));
-        world.addModel(ModelFactory.createCube(new Point(15, 5, 5), 5));
+        world.addModel(ModelFactory.createCube(new Point(5, 5, 30), 5));
+        world.addModel(ModelFactory.createCube(new Point(15, 5, 30), 5));
+        world.addModel(ModelFactory.createCube(new Point(16, 6, 31), 3));
 
         return world;
     }
