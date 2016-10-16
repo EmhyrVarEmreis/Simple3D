@@ -41,17 +41,17 @@ public abstract class Projection {
         ay = camera.getAngleY();
         az = camera.getAngleZ();
 
+        x -= cx;
+        y -= cy;
+        z -= cz;
+
         double dx = cos(ay) * (sin(az) * (y - cy) + cos(az) * (x - cx)) - sin(ay) * (z - cz);
-        double dy = sin(ax) * (cos(ay) * (z - cz) + sin(ay) * (sin(az) * (y - cy) + cos(az) * (x - ax))) + cos(ax) * (cos(az) * (y - cy) - sin(az) * (x - cx));
-        double dz = cos(ax) * (cos(ay) * (z - cz) + sin(ay) * (sin(az) * (y - cy) + cos(az) * (x - ax))) - sin(ax) * (cos(az) * (y - cy) - sin(az) * (x - cx));
+        double dy = sin(ax) * (cos(ay) * (z - cz) + sin(ay) * (sin(az) * (y - cy) + cos(az) * (x - cx))) + cos(ax) * (cos(az) * (y - cy) - sin(az) * (x - cx));
+        double dz = cos(ax) * (cos(ay) * (z - cz) + sin(ay) * (sin(az) * (y - cy) + cos(az) * (x - cx))) - sin(ax) * (cos(az) * (y - cy) - sin(az) * (x - cx));
 
         x = dx;
         y = dy;
         z = dz;
-
-        x -= cx;
-        y -= cy;
-        z -= cz;
 
         x = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z * -1 + matrix[0][3] * 1;
         y = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z * -1 + matrix[1][3] * 1;
