@@ -11,7 +11,7 @@ import xyz.morecraft.dev.simple3d.engine.Screen;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RenderThread implements Runnable {
+public final class RenderThread implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(RenderThread.class);
 
@@ -34,7 +34,7 @@ public class RenderThread implements Runnable {
         this.thread = new Thread(this);
     }
 
-    public synchronized void start() {
+    synchronized void start() {
         log.info("RenderThread started");
         isRunning = true;
         thread.start();
@@ -43,10 +43,10 @@ public class RenderThread implements Runnable {
     @Override
     public void run() {
         final long nsFps = TimeUnit.SECONDS.toNanos(1) / configuration.getMaxFps();
-        final long nsKey = TimeUnit.SECONDS.toNanos(1) / 100;
+        final long nsKey = TimeUnit.SECONDS.toNanos(1) / configuration.getMaxControlRefresh();
 
         log.info("FPS locked at maximum 1 frame per {} nanoseconds ({}FPS)", nsFps, configuration.getMaxFps());
-        log.info("Key locked at maximum 1 frame per {} nanoseconds ({}FPS)", nsKey, 100);
+        log.info("Key locked at maximum 1 frame per {} nanoseconds ({}FPS)", nsKey, configuration.getMaxControlRefresh());
 
         long lastTime = System.nanoTime();
         long lastTimeKey = System.nanoTime();

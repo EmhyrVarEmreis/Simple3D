@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
+import xyz.morecraft.dev.simple3d.configuration.ControlConfiguration;
 import xyz.morecraft.dev.simple3d.engine.tool.Camera;
 
 import java.awt.event.KeyEvent;
@@ -13,17 +13,17 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class Listener implements KeyListener {
+public final class Listener implements KeyListener {
 
     private static final Logger log = LoggerFactory.getLogger(Listener.class);
 
-    private final EngineConfiguration configuration;
+    private final ControlConfiguration configuration;
     private final Camera camera;
 
     private final Set<Integer> keySet;
 
     @Autowired
-    public Listener(EngineConfiguration configuration, Camera camera) {
+    public Listener(ControlConfiguration configuration, Camera camera) {
         this.configuration = configuration;
         this.camera = camera;
         this.keySet = ConcurrentHashMap.newKeySet();

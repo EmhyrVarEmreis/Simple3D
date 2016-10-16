@@ -2,7 +2,7 @@ package xyz.morecraft.dev.simple3d.main;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
+import xyz.morecraft.dev.simple3d.configuration.WindowConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
 
 import javax.swing.*;
@@ -12,13 +12,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 @Component
-public class Window extends JFrame {
+public final class Window extends JFrame {
 
     private BufferedImage image;
     private int[] pixels;
 
     @Autowired
-    public Window(EngineConfiguration configuration, Listener listener) throws HeadlessException {
+    public Window(WindowConfiguration configuration, Listener listener) throws HeadlessException {
         setSize(configuration.getWidth(), configuration.getHeight());
         setResizable(false);
         setTitle("Simple3D");
@@ -45,7 +45,7 @@ public class Window extends JFrame {
         return pixels;
     }
 
-    public void render() {
+    void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
