@@ -1,13 +1,16 @@
 package xyz.morecraft.dev.simple3d.engine.projection.matrix;
 
 import xyz.morecraft.dev.simple3d.configuration.MatrixConfiguration;
+import xyz.morecraft.dev.simple3d.engine.tool.Camera;
 
 public final class PerspectiveProjectionMatrixInitializer implements MatrixInitializer {
 
     private final MatrixConfiguration matrixConfiguration;
+    private final Camera camera;
 
-    public PerspectiveProjectionMatrixInitializer(MatrixConfiguration matrixConfiguration) {
+    public PerspectiveProjectionMatrixInitializer(MatrixConfiguration matrixConfiguration, Camera camera) {
         this.matrixConfiguration = matrixConfiguration;
+        this.camera = camera;
     }
 
     @Override
@@ -21,7 +24,7 @@ public final class PerspectiveProjectionMatrixInitializer implements MatrixIniti
     }
 
     private double[][] getMatrix(final double fieldOfViewAngle, final double aspectRatio, final double distanceToNearClippingPlane, final double distanceToFarClippingPlane) {
-        double y2 = distanceToNearClippingPlane * Math.tan(Math.toRadians(fieldOfViewAngle / 2));
+        double y2 = distanceToNearClippingPlane * Math.tan(Math.toRadians(fieldOfViewAngle / 2) / camera.getZoom());
         double y1 = -y2;
         double x1 = y1 * aspectRatio;
         double x2 = y2 * aspectRatio;

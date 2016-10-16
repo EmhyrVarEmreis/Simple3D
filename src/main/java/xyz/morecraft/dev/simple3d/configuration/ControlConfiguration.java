@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "control")
 public class ControlConfiguration {
 
-    private double rotationSpeed = 0.03;
-    private double movementSpeed = 0.04;
+    private double rotationSpeed = 0.25;
+    private double movementSpeed = 0.05;
+    private double zoomSpeed = 0.005;
 
     public double getRotationSpeed() {
         return rotationSpeed;
@@ -24,6 +25,14 @@ public class ControlConfiguration {
 
     public void setMovementSpeed(double movementSpeed) {
         this.movementSpeed = movementSpeed;
+    }
+
+    public double getZoomSpeed() {
+        return zoomSpeed;
+    }
+
+    public void setZoomSpeed(double zoomSpeed) {
+        this.zoomSpeed = zoomSpeed;
     }
 
 }

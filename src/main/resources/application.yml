@@ -8,6 +8,7 @@ window:
 control:
   rotation-speed: 0.25
   movement-speed: 0.05
+  zoom-speed: 0.005
 matrix:
   field-of-view-angle: 50.0
   distance-to-near-clipping-plane: 1.0

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.ControlConfiguration;
 import xyz.morecraft.dev.simple3d.engine.tool.Camera;
+import xyz.morecraft.dev.simple3d.main.RenderThread;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -77,6 +78,13 @@ public final class Listener implements KeyListener {
             camera.setAngleZ(camera.getAngleZ() - configuration.getRotationSpeed());
         } else if (keySet.contains(KeyEvent.VK_PERIOD)) {
             camera.setAngleZ(camera.getAngleZ() + configuration.getRotationSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_MINUS)) {
+            camera.setZoom(camera.getZoom() - configuration.getZoomSpeed());
+            RenderThread.NEEDS_RECALC = true;
+        } else if (keySet.contains(KeyEvent.VK_EQUALS)) {
+            camera.setZoom(camera.getZoom() + configuration.getZoomSpeed());
+            RenderThread.NEEDS_RECALC = true;
         }
     }
 

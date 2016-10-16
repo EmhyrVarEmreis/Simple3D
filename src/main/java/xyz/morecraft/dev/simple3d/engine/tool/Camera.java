@@ -8,11 +8,14 @@ public class Camera {
     private double angleY;
     private double angleZ;
 
+    private double zoom;
+
     public Camera(Point position) {
         this.position = position;
         this.angleX = 0;
         this.angleY = 0;
         this.angleZ = 0;
+        this.zoom = 1;
     }
 
     public Camera() {
@@ -51,6 +54,14 @@ public class Camera {
         this.angleZ = angleZ;
     }
 
+    public double getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(double zoom) {
+        this.zoom = zoom;
+    }
+
     @Override
     public String toString() {
         return "Camera{" +
@@ -58,6 +69,7 @@ public class Camera {
                 ", angleX=" + angleX +
                 ", angleY=" + angleY +
                 ", angleZ=" + angleZ +
+                ", zoom=" + zoom +
                 '}';
     }
 

@@ -35,6 +35,10 @@ public final class Screen {
         this.g2d.setFont(new Font("Arial", Font.PLAIN, 9));
     }
 
+    public void recalculate() {
+        projection.recalculate();
+    }
+
     public void update() {
 
         fillScreen();
@@ -59,7 +63,6 @@ public final class Screen {
 
     private void drawInfo() {
         g2d.setColor(Color.RED);
-        this.g2d.setFont(new Font("Arial", Font.PLAIN, 9));
         g2d.drawString("Camera", 5, 35);
         g2d.drawString("x = " + camera.getPosition().getX(), 10, 45);
         g2d.drawString("y = " + camera.getPosition().getY(), 10, 55);
@@ -67,6 +70,7 @@ public final class Screen {
         g2d.drawString("θx = " + camera.getAngleX(), 10, 75);
         g2d.drawString("θy = " + camera.getAngleY(), 10, 85);
         g2d.drawString("θz = " + camera.getAngleZ(), 10, 95);
+        g2d.drawString("zoom = " + camera.getZoom(), 10, 105);
     }
 
     private void drawModel(Model model) {

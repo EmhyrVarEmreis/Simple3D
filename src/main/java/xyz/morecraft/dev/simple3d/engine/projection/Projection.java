@@ -17,6 +17,7 @@ public final class Projection {
 
     private final WindowConfiguration configuration;
     private final Camera camera;
+    private final MatrixInitializer matrixInitializer;
 
     private double[][] matrix;
     private double[][] vpm;
@@ -25,15 +26,19 @@ public final class Projection {
     public Projection(WindowConfiguration configuration, Camera camera, MatrixInitializer matrixInitializer) {
         this.configuration = configuration;
         this.camera = camera;
+        this.matrixInitializer = matrixInitializer;
 
-        this.matrix = matrixInitializer.initMatrix();
+        recalculate();
+    }
 
+    public void recalculate() {
         this.vpm = new double[][]{
                 {configuration.getWidth(), 0, 0, 0},
                 {0, configuration.getHeight(), 0, 0},
                 {0, 0, 1, 0},
                 {0, 0, 0, 1}
         };
+        this.matrix = matrixInitializer.initMatrix();
     }
 
     public CalculatedPoint calculatePoint(Point point) {

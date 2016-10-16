@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public final class RenderThread implements Runnable {
 
+    public static volatile boolean NEEDS_RECALC = Boolean.FALSE;
+
     private static final Logger log = LoggerFactory.getLogger(RenderThread.class);
 
     private final EngineConfiguration configuration;
@@ -58,6 +60,10 @@ public final class RenderThread implements Runnable {
             now = System.nanoTime();
             if (now - lastTime >= nsFps) {
                 lastTime = now;
+                if (NEEDS_RECALC) {
+                    screen.recalculate();
+                    NEEDS_RECALC = false;
+                }
                 screen.update();
             }
             if (now - lastTimeKey >= nsKey) {

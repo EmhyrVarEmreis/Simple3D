@@ -38,8 +38,8 @@ public class BeanConfiguration {
     @Primary
     @Bean(name = "defaultProjectionMatrix")
     @Autowired
-    public MatrixInitializer defaultScreen(MatrixConfiguration matrixConfiguration) {
-        return new PerspectiveProjectionMatrixInitializer(matrixConfiguration);
+    public MatrixInitializer defaultScreen(MatrixConfiguration matrixConfiguration, Camera camera) {
+        return new PerspectiveProjectionMatrixInitializer(matrixConfiguration, camera);
     }
 
 }
