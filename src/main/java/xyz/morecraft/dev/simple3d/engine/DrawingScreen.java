@@ -32,11 +32,8 @@ public class DrawingScreen extends Screen {
         }
         iii++;
 
-
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, getConfiguration().getWidth(), getConfiguration().getHeight());
-
-        g2d.setColor(Color.WHITE);
 
         getWorld().getModelList().forEach(
                 this::drawModel
@@ -47,6 +44,11 @@ public class DrawingScreen extends Screen {
 
     private void drawModel(Model model) {
         //log.debug("Drawing model {}", model);
+        if (model.getPolygonList().size() > 10) {
+            g2d.setColor(Color.GREEN);
+        } else {
+            g2d.setColor(Color.BLUE);
+        }
         model.getPolygonList().forEach(
                 this::drawPolygon
         );
@@ -59,14 +61,22 @@ public class DrawingScreen extends Screen {
         for (Vertex vertex : polygon.getSortedVertexList()) {
             calculated = getProjection().calculatePoint(vertex.getPosition());
             if (last != null) {
-                g2d.drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
+                drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
             }
             last = calculated;
         }
         if (last != null && polygon.getSortedVertexList().size() > 2) {
             calculated = getProjection().calculatePoint(polygon.getSortedVertexList().get(0).getPosition());
-            g2d.drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
+            drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
         }
+    }
+
+    private void drawLine(int x1, int y1, int x2, int y2) {
+//        if (x1 <= 0 || x1 >= getConfiguration().getWidth() || x2 <= 0 || x2 >= getConfiguration().getWidth()
+//                || y1 <= 0 || y1 >= getConfiguration().getHeight() || y2 <= 0 || y2 >= getConfiguration().getHeight()) {
+//            log.warn("Drawing line [({}, {}); ({}, {})]", x1, y1, x2, y2);
+//        }
+        g2d.drawLine(x1, getConfiguration().getHeight() - y1, x2, getConfiguration().getHeight() - y2);
     }
 
 }

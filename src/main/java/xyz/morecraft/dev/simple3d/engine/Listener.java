@@ -45,6 +45,9 @@ public class Listener implements KeyListener {
 
     public void update() {
         //log.debug("{}", keySet.stream().map(Object::toString).collect(Collectors.joining(", ")));
+        if (keySet.contains(KeyEvent.VK_ESCAPE)) {
+            System.exit(0);
+        }
         if (keySet.contains(KeyEvent.VK_W)) {
             camera.getPosition().setZ(camera.getPosition().getZ() + configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_S)) {
@@ -59,6 +62,21 @@ public class Listener implements KeyListener {
             camera.getPosition().setY(camera.getPosition().getY() - configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_E)) {
             camera.getPosition().setY(camera.getPosition().getY() + configuration.getMovementSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_UP)) {
+            camera.setAngleX(camera.getAngleX() - configuration.getRotationSpeed());
+        } else if (keySet.contains(KeyEvent.VK_DOWN)) {
+            camera.setAngleX(camera.getAngleX() + configuration.getRotationSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_RIGHT)) {
+            camera.setAngleY(camera.getAngleY() - configuration.getRotationSpeed());
+        } else if (keySet.contains(KeyEvent.VK_LEFT)) {
+            camera.setAngleY(camera.getAngleY() + configuration.getRotationSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_COMMA)) {
+            camera.setAngleZ(camera.getAngleZ() - configuration.getRotationSpeed());
+        } else if (keySet.contains(KeyEvent.VK_PERIOD)) {
+            camera.setAngleZ(camera.getAngleZ() + configuration.getRotationSpeed());
         }
     }
 

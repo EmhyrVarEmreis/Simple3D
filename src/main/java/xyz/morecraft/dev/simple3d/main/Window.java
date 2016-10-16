@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
-import xyz.morecraft.dev.simple3d.engine.PixelScreen;
-import xyz.morecraft.dev.simple3d.engine.Screen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +30,11 @@ public class Window extends JFrame {
 
         image = new BufferedImage(configuration.getWidth(), configuration.getHeight(), BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+
+        if (configuration.isFullscreen()) {
+            setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+            setUndecorated(true);
+        }
     }
 
     public BufferedImage getImage() {

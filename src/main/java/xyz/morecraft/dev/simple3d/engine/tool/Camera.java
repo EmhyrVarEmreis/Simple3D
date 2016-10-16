@@ -4,25 +4,19 @@ public class Camera {
 
     private Point position;
 
-    private double horizontalDirectionX;
-    private double verticalDirectionX;
-    private double horizontalDirectionY;
-    private double verticalDirectionY;
-    private double horizontalDirectionZ;
-    private double verticalDirectionZ;
+    private double angleX;
+    private double angleY;
+    private double angleZ;
 
     public Camera(Point position) {
         this.position = position;
+        this.angleX = 0;
+        this.angleY = 0;
+        this.angleZ = 0;
     }
 
     public Camera() {
         this(new Point(0, 0, 0));
-        this.horizontalDirectionX = 0;
-        this.verticalDirectionX = 0;
-        this.horizontalDirectionY = 0;
-        this.verticalDirectionY = 0;
-        this.horizontalDirectionZ = 0;
-        this.verticalDirectionZ = 0;
     }
 
     public Point getPosition() {
@@ -33,64 +27,37 @@ public class Camera {
         this.position = position;
     }
 
-    public double getHorizontalDirectionX() {
-        return horizontalDirectionX;
+    public double getAngleX() {
+        return angleX;
     }
 
-    public void setHorizontalDirectionX(double horizontalDirectionX) {
-        this.horizontalDirectionX = horizontalDirectionX;
+    public void setAngleX(double angleX) {
+        this.angleX = angleX;
     }
 
-    public double getVerticalDirectionX() {
-        return verticalDirectionX;
+    public double getAngleY() {
+        return angleY;
     }
 
-    public void setVerticalDirectionX(double verticalDirectionX) {
-        this.verticalDirectionX = verticalDirectionX;
+    public void setAngleY(double angleY) {
+        this.angleY = angleY;
     }
 
-    public double getHorizontalDirectionY() {
-        return horizontalDirectionY;
+    public double getAngleZ() {
+        return angleZ;
     }
 
-    public void setHorizontalDirectionY(double horizontalDirectionY) {
-        this.horizontalDirectionY = horizontalDirectionY;
-    }
-
-    public double getVerticalDirectionY() {
-        return verticalDirectionY;
-    }
-
-    public void setVerticalDirectionY(double verticalDirectionY) {
-        this.verticalDirectionY = verticalDirectionY;
-    }
-
-    public double getHorizontalDirectionZ() {
-        return horizontalDirectionZ;
-    }
-
-    public void setHorizontalDirectionZ(double horizontalDirectionZ) {
-        this.horizontalDirectionZ = horizontalDirectionZ;
-    }
-
-    public double getVerticalDirectionZ() {
-        return verticalDirectionZ;
-    }
-
-    public void setVerticalDirectionZ(double verticalDirectionZ) {
-        this.verticalDirectionZ = verticalDirectionZ;
+    public void setAngleZ(double angleZ) {
+        this.angleZ = angleZ;
     }
 
     @Override
     public String toString() {
         return "Camera{" +
                 "position=" + position +
-                ", horizontalDirectionX=" + horizontalDirectionX +
-                ", verticalDirectionX=" + verticalDirectionX +
-                ", horizontalDirectionY=" + horizontalDirectionY +
-                ", verticalDirectionY=" + verticalDirectionY +
-                ", horizontalDirectionZ=" + horizontalDirectionZ +
-                ", verticalDirectionZ=" + verticalDirectionZ +
+                ", angleX=" + angleX +
+                ", angleY=" + angleY +
+                ", angleZ=" + angleZ +
                 '}';
     }
 

@@ -28,4 +28,32 @@ public final class ModelFactory {
         return model;
     }
 
+    public static Model createLine(Point p1, Point p2) {
+        Model model = new Model(nextUid, "Cube" + nextUid, p1);
+
+        Vertex v1 = new Vertex(p1);
+        Vertex v2 = new Vertex(p2);
+
+        model.addNewPolygon(Polygon.from(v1, v2));
+
+        nextUid++;
+
+        return model;
+    }
+
+    public static Model createHorizontalSquareMesh(Point p1, Point p2, double step) {
+        Model model = new Model(nextUid, "Mesh" + nextUid, p1);
+
+        for (double a = p1.getX(); a <= p2.getX(); a += step) {
+            model.addNewPolygon(Polygon.from(new Vertex(new Point(a, p1.getY(), p1.getZ())), new Vertex(new Point(a, p2.getY(), p2.getZ()))));
+        }
+
+        for (double a = p1.getZ(); a <= p2.getZ(); a += step) {
+            model.addNewPolygon(Polygon.from(new Vertex(new Point(p1.getX(), p1.getY(), a)), new Vertex(new Point(p2.getX(), p2.getY(), a))));
+        }
+
+        nextUid++;
+
+        return model;
+    }
 }

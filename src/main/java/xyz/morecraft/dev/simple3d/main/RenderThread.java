@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
-import xyz.morecraft.dev.simple3d.engine.PixelScreen;
 import xyz.morecraft.dev.simple3d.engine.Screen;
 
 import java.util.concurrent.TimeUnit;

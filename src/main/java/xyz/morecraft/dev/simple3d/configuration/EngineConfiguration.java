@@ -13,6 +13,8 @@ public class EngineConfiguration {
     private double rotationSpeed = 0.03;
     private double movementSpeed = 0.04;
 
+    private boolean fullscreen = Boolean.FALSE;
+
     public int getWidth() {
         return width;
     }
@@ -51,6 +53,14 @@ public class EngineConfiguration {
 
     public void setMovementSpeed(double movementSpeed) {
         this.movementSpeed = movementSpeed;
+    }
+
+    public boolean isFullscreen() {
+        return fullscreen;
+    }
+
+    public void setFullscreen(boolean fullscreen) {
+        this.fullscreen = fullscreen;
     }
 
 }
