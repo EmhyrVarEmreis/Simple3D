@@ -17,6 +17,8 @@ public final class Screen {
 
     private static final Logger log = LoggerFactory.getLogger(Screen.class);
 
+    private static final Color INFO_BACKGROUND = new Color(.1f, .1f, .1f, .80f);
+
     private Graphics2D g2d;
 
     private final WindowConfiguration windowConfiguration;
@@ -40,20 +42,15 @@ public final class Screen {
     }
 
     public void update() {
-
         fillScreen();
+        drawObjects();
         drawInfo();
+    }
 
-//        if (iii % 10 == 0) {
-//            log.debug(new Point(Math.round(getCamera().getPosition().getX() * 100.0) / 100.0, Math.round(getCamera().getPosition().getY() * 100.0) / 100.0, Math.round(getCamera().getPosition().getZ() * 100.0) / 100.0).toString());
-//        }
-//        iii++;
-
+    private void drawObjects() {
         world.getModelList().forEach(
                 this::drawModel
         );
-
-        //log.info("");
     }
 
     private void fillScreen() {
@@ -62,6 +59,8 @@ public final class Screen {
     }
 
     private void drawInfo() {
+        g2d.setColor(INFO_BACKGROUND);
+        g2d.fillRect(0, 0, 125, 110);
         g2d.setColor(Color.RED);
         g2d.drawString("Camera", 5, 35);
         g2d.drawString("x = " + camera.getPosition().getX(), 10, 45);
@@ -102,10 +101,14 @@ public final class Screen {
         }
     }
 
+    private void drawLine(CalculatedPoint p1, CalculatedPoint p2) {
+        g2d.drawLine(p1.getX(), p1.getY(), p1.getX(), p1.getY());
+    }
+
     private void drawLine(int x1, int y1, int x2, int y2) {
 //        if (x1 <= 0 || x1 >= windowConfiguration.getWidth() || x2 <= 0 || x2 >= windowConfiguration.getWidth()
 //                || y1 <= 0 || y1 >= windowConfiguration.getHeight() || y2 <= 0 || y2 >= windowConfiguration.getHeight()) {
-//            log.warn("Drawing line [({}, {}); ({}, {})]", x1, y1, x2, y2);
+//            return;
 //        }
         g2d.drawLine(x1, windowConfiguration.getHeight() - y1, x2, windowConfiguration.getHeight() - y2);
     }
