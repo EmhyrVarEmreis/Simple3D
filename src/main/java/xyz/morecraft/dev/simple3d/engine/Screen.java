@@ -101,10 +101,6 @@ public final class Screen {
         }
     }
 
-    private void drawLine(CalculatedPoint p1, CalculatedPoint p2) {
-        g2d.drawLine(p1.getX(), p1.getY(), p1.getX(), p1.getY());
-    }
-
     private void drawLine(int x1, int y1, int x2, int y2) {
 //        if (x1 <= 0 || x1 >= windowConfiguration.getWidth() || x2 <= 0 || x2 >= windowConfiguration.getWidth()
 //                || y1 <= 0 || y1 >= windowConfiguration.getHeight() || y2 <= 0 || y2 >= windowConfiguration.getHeight()) {
