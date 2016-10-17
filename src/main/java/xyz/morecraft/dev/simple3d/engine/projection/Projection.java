@@ -87,8 +87,8 @@ public final class Projection {
         CalculatedPoint ret = new CalculatedPoint((int) x, (int) y, z);
 
         // Center view
-        ret.setX(ret.getX() + configuration.getWidth() / 2 - (int) camera.getPosition().getX());
-        ret.setY(ret.getY() + configuration.getHeight() / 2 - (int) camera.getPosition().getY());
+        ret.setX(ret.getX() + configuration.getWidth() / 2);
+        ret.setY(ret.getY() + configuration.getHeight() / 2);
 
         //log.info("{} -> {}", point, ret);
 
