@@ -11,6 +11,7 @@ public class WindowConfiguration {
     private int height = 600;
 
     private boolean fullscreen = Boolean.FALSE;
+    private boolean invertY = Boolean.TRUE;
 
     public int getWidth() {
         return width;
@@ -34,6 +35,14 @@ public class WindowConfiguration {
 
     public void setFullscreen(boolean fullscreen) {
         this.fullscreen = fullscreen;
+    }
+
+    public boolean isInvertY() {
+        return invertY;
+    }
+
+    public void setInvertY(boolean invertY) {
+        this.invertY = invertY;
     }
 
 }

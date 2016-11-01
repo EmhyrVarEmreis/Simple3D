@@ -7,10 +7,14 @@ import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.WindowConfiguration;
 import xyz.morecraft.dev.simple3d.engine.projection.Projection;
 import xyz.morecraft.dev.simple3d.engine.tool.*;
+import xyz.morecraft.dev.simple3d.engine.tool.Point;
 import xyz.morecraft.dev.simple3d.engine.tool.Polygon;
 import xyz.morecraft.dev.simple3d.main.Window;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 @Component
 public final class Screen {
@@ -43,8 +47,32 @@ public final class Screen {
 
     public void update() {
         fillScreen();
+        test();
         drawObjects();
         drawInfo();
+    }
+
+    private void test() {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getClassLoader().getResourceAsStream("img/texture/sand.png"));
+            CalculatedPoint c1 = projection.calculatePoint(new Point(20, 10, 40));
+            CalculatedPoint c2 = projection.calculatePoint(new Point(20, 12, 40));
+            CalculatedPoint c3 = projection.calculatePoint(new Point(22, 12, 40));
+            CalculatedPoint c4 = projection.calculatePoint(new Point(22, 10, 40));
+
+            AffineTransform transform = new AffineTransform();
+            transform.translate(c2.getX(), c2.getY());
+            transform.scale(1.0 * (c3.getX() - c2.getX()) / image.getWidth(), 1.0 * (c4.getY() - c2.getY()) / image.getHeight());
+            g2d.drawImage(image, transform, null);
+
+            g2d.setColor(Color.RED);
+            drawPoint(c1);
+            drawPoint(c2);
+            drawPoint(c3);
+            drawPoint(c4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void drawObjects() {
@@ -101,12 +129,16 @@ public final class Screen {
         }
     }
 
+    private void drawPoint(CalculatedPoint p) {
+        drawLine(p.getX(), p.getY(), p.getX(), p.getY());
+    }
+
     private void drawLine(int x1, int y1, int x2, int y2) {
 //        if (x1 <= 0 || x1 >= windowConfiguration.getWidth() || x2 <= 0 || x2 >= windowConfiguration.getWidth()
 //                || y1 <= 0 || y1 >= windowConfiguration.getHeight() || y2 <= 0 || y2 >= windowConfiguration.getHeight()) {
 //            return;
 //        }
-        g2d.drawLine(x1, windowConfiguration.getHeight() - y1, x2, windowConfiguration.getHeight() - y2);
+        g2d.drawLine(x1, y1, x2, y2);
     }
 
 }

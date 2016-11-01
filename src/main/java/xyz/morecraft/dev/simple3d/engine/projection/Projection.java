@@ -92,6 +92,10 @@ public final class Projection {
 
         //log.info("{} -> {}", point, ret);
 
+        if (configuration.isInvertY()) {
+            ret.setY(configuration.getHeight() - ret.getY());
+        }
+
         return ret;
     }
 
