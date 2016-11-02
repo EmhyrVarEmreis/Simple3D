@@ -11,6 +11,7 @@ import xyz.morecraft.dev.simple3d.engine.tool.Polygon;
 import xyz.morecraft.dev.simple3d.main.Window;
 
 import java.awt.*;
+import java.util.PriorityQueue;
 
 @Component
 public final class Screen {
@@ -25,6 +26,9 @@ public final class Screen {
     private final Projection projection;
     private final Camera camera;
     private final World world;
+
+    private final PriorityQueue<ObjectWrapper<Model>> modelQueue = new PriorityQueue<>();
+    private final PriorityQueue<ObjectWrapper<Polygon>> polygonQueue = new PriorityQueue<>();
 
     @Autowired
     public Screen(WindowConfiguration windowConfiguration, Projection projection, Camera camera, Window window, World world) {
@@ -48,9 +52,26 @@ public final class Screen {
     }
 
     private void drawObjects() {
-        world.getModelList().forEach(
-                this::drawModel
-        );
+        for (Model model : world.getModelList()) {
+            if (model.getPolygonList().size() > 25) { // FIX FOR MESH
+                modelQueue.offer(
+                        new ObjectWrapper<>(
+                                model,
+                                Double.MAX_VALUE
+                        )
+                );
+            } else {
+                modelQueue.offer(
+                        new ObjectWrapper<>(
+                                model,
+                                projection.calculatePoint(model.getMiddlePoint()).getW()
+                        )
+                );
+            }
+        }
+        while (!modelQueue.isEmpty()) {
+            drawModel(modelQueue.poll().o);
+        }
     }
 
     private void fillScreen() {
@@ -73,40 +94,65 @@ public final class Screen {
     }
 
     private void drawModel(Model model) {
-        //log.debug("Drawing model {}", model);
-        if (model.getPolygonList().size() > 10) {
-            g2d.setColor(Color.GREEN);
-        } else {
-            g2d.setColor(Color.BLUE);
+        int shadeLevel = model.getPolygonList().size() > 25 ? 0 : model.getPolygonList().size();
+        for (Polygon polygon : model.getPolygonList()) {
+            polygonQueue.offer(
+                    new ObjectWrapper<>(
+                            polygon,
+                            projection.calculatePoint(polygon.getMiddlePoint()).getW()
+                    )
+            );
         }
-        model.getPolygonList().forEach(
-                this::drawPolygon
-        );
+        while (!polygonQueue.isEmpty()) {
+            drawPolygon(polygonQueue.poll().o, --shadeLevel);
+        }
     }
 
-    private void drawPolygon(Polygon polygon) {
-        //log.debug("Drawing polygon");
-        CalculatedPoint last = null;
-        CalculatedPoint calculated;
+    private void drawPolygon(Polygon polygon, int shadeLevel) {
+        int[] xP = new int[polygon.getSortedVertexList().size()];
+        int[] yP = new int[polygon.getSortedVertexList().size()];
+        int n = 0;
+
         for (Vertex vertex : polygon.getSortedVertexList()) {
-            calculated = projection.calculatePoint(vertex.getPosition());
-            if (last != null) {
-                drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
-            }
-            last = calculated;
+            CalculatedPoint cp = projection.calculatePoint(vertex.getPosition());
+            xP[n] = cp.getX();
+            yP[n] = cp.getY();
+            n++;
         }
-        if (last != null && polygon.getSortedVertexList().size() > 2) {
-            calculated = projection.calculatePoint(polygon.getSortedVertexList().get(0).getPosition());
-            drawLine(last.getX(), last.getY(), calculated.getX(), calculated.getY());
+
+        int rgb = polygon.getColor().getRGB();
+        while (shadeLevel-- >= 0) {
+            rgb = ((rgb & 0xfefefefe) >> 1);
         }
+        g2d.setColor(new Color(rgb));
+
+        if (n == 1) {
+            g2d.drawLine(xP[0], yP[0], xP[0], yP[0]);
+        } else if (n == 2) {
+            g2d.drawLine(xP[0], yP[0], xP[1], yP[1]);
+        } else {
+            g2d.fillPolygon(xP, yP, n);
+        }
+
     }
 
     private void drawLine(int x1, int y1, int x2, int y2) {
-//        if (x1 <= 0 || x1 >= windowConfiguration.getWidth() || x2 <= 0 || x2 >= windowConfiguration.getWidth()
-//                || y1 <= 0 || y1 >= windowConfiguration.getHeight() || y2 <= 0 || y2 >= windowConfiguration.getHeight()) {
-//            return;
-//        }
-        g2d.drawLine(x1, windowConfiguration.getHeight() - y1, x2, windowConfiguration.getHeight() - y2);
+        g2d.drawLine(x1, y1, x2, y2);
+    }
+
+    private class ObjectWrapper<T> implements Comparable<ObjectWrapper<T>> {
+        private T o;
+        private double w;
+
+        public ObjectWrapper(T o, double w) {
+            this.o = o;
+            this.w = w;
+        }
+
+        @Override
+        public int compareTo(ObjectWrapper<T> o) {
+            return Double.compare(w, o.w) * -1;
+        }
     }
 
 }

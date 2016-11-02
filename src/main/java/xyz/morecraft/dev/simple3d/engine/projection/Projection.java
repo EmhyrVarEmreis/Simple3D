@@ -84,13 +84,17 @@ public final class Projection {
         y = vpm[1][0] * x + vpm[1][1] * y + vpm[1][2] * z + vpm[1][3] * 1;
         z = vpm[2][0] * x + vpm[2][1] * y + vpm[2][2] * z + vpm[2][3] * 1;
 
-        CalculatedPoint ret = new CalculatedPoint((int) x, (int) y, z);
+        CalculatedPoint ret = new CalculatedPoint((int) x, (int) y, z, w);
 
         // Center view
         ret.setX(ret.getX() + configuration.getWidth() / 2);
         ret.setY(ret.getY() + configuration.getHeight() / 2);
 
         //log.info("{} -> {}", point, ret);
+
+        if (configuration.isInvertY()) {
+            ret.setY(configuration.getHeight() - ret.getY());
+        }
 
         return ret;
     }

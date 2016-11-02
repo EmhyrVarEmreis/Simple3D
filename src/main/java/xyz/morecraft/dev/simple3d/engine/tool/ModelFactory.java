@@ -1,10 +1,12 @@
 package xyz.morecraft.dev.simple3d.engine.tool;
 
+import java.awt.*;
+
 public final class ModelFactory {
 
     private static volatile int nextUid = 100;
 
-    public static Model createCube(Point position, double size) {
+    public static Model createCube(Point position, double size, Color color) {
         Model model = new Model(nextUid, "Cube" + nextUid, position);
 
         Vertex v1 = new Vertex(position);
@@ -22,6 +24,10 @@ public final class ModelFactory {
         model.addNewPolygon(Polygon.from(v3, v4, v8, v7));
         model.addNewPolygon(Polygon.from(v1, v3, v7, v5));
         model.addNewPolygon(Polygon.from(v2, v4, v8, v6));
+
+        model.getPolygonList().forEach(
+                polygon -> polygon.setColor(color)
+        );
 
         nextUid++;
 

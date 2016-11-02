@@ -5,11 +5,13 @@ public class CalculatedPoint {
     private int x;
     private int y;
     private double z;
+    private double w;
 
-    public CalculatedPoint(int x, int y, double z) {
+    public CalculatedPoint(int x, int y, double z, double w) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.w = w;
     }
 
     public int getX() {
@@ -36,8 +38,16 @@ public class CalculatedPoint {
         this.z = z;
     }
 
+    public double getW() {
+        return w;
+    }
+
+    public void setW(double w) {
+        this.w = w;
+    }
+
     public static CalculatedPoint from(CalculatedPoint old) {
-        return new CalculatedPoint(old.x, old.y, old.z);
+        return new CalculatedPoint(old.x, old.y, old.z, old.w);
     }
 
     @Override
@@ -46,6 +56,7 @@ public class CalculatedPoint {
                 "x=" + x +
                 ", y=" + y +
                 ", z=" + z +
+                ", w=" + w +
                 '}';
     }
 
@@ -66,7 +77,10 @@ public class CalculatedPoint {
         if (y != that.y) {
             return false;
         }
-        return Double.compare(that.z, z) == 0;
+        if (Double.compare(that.z, z) != 0) {
+            return false;
+        }
+        return Double.compare(that.w, w) == 0;
 
     }
 
@@ -77,6 +91,8 @@ public class CalculatedPoint {
         result = x;
         result = 31 * result + y;
         temp = Double.doubleToLongBits(z);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(w);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

@@ -11,6 +11,8 @@ import xyz.morecraft.dev.simple3d.engine.tool.ModelFactory;
 import xyz.morecraft.dev.simple3d.engine.tool.Point;
 import xyz.morecraft.dev.simple3d.engine.tool.World;
 
+import java.awt.*;
+
 @Configuration
 public class BeanConfiguration {
 
@@ -20,11 +22,11 @@ public class BeanConfiguration {
         World world = new World();
 
         world.addModel(ModelFactory.createHorizontalSquareMesh(new Point(-20, 5, 20), new Point(25, 5, 50), 0.75));
-        world.addModel(ModelFactory.createCube(new Point(5, 5, 30), 5));
-        world.addModel(ModelFactory.createCube(new Point(15, 5, 30), 5));
-        world.addModel(ModelFactory.createCube(new Point(16, 6, 31), 3));
-        world.addModel(ModelFactory.createCube(new Point(-15, 5, 35), 7));
-        world.addModel(ModelFactory.createCube(new Point(-5, 5, 30), 4));
+        world.addModel(ModelFactory.createCube(new Point(5, 5, 30), 5, Color.RED));
+        world.addModel(ModelFactory.createCube(new Point(15, 5, 30), 5, Color.BLUE));
+        world.addModel(ModelFactory.createCube(new Point(16, 6, 31), 3, Color.DARK_GRAY));
+        world.addModel(ModelFactory.createCube(new Point(-15, 5, 35), 7, Color.GRAY));
+        world.addModel(ModelFactory.createCube(new Point(-5, 5, 30), 4, Color.ORANGE));
 
         return world;
     }

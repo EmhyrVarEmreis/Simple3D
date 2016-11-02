@@ -5,6 +5,7 @@ window:
   width: 800
   height: 600
   fullscreen: false
+  invert-y: true
 control:
   rotation-speed: 0.25
   movement-speed: 0.05
