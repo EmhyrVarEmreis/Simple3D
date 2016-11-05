@@ -5,7 +5,9 @@ Simple 3D view/camera.
 
 ### General
 
-Press `ESC` to exit.
+Exit: press `ESC`.
+
+Take screenshot: press `H`. Image will be saved in current working directory.
 
 ### Camera
 

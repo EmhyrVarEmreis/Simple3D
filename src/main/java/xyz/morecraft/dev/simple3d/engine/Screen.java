@@ -8,7 +8,7 @@ import xyz.morecraft.dev.simple3d.configuration.WindowConfiguration;
 import xyz.morecraft.dev.simple3d.engine.projection.Projection;
 import xyz.morecraft.dev.simple3d.engine.tool.*;
 import xyz.morecraft.dev.simple3d.engine.tool.Polygon;
-import xyz.morecraft.dev.simple3d.main.Window;
+import xyz.morecraft.dev.simple3d.main.ImageBean;
 
 import java.awt.*;
 import java.util.PriorityQueue;
@@ -31,12 +31,12 @@ public final class Screen {
     private final PriorityQueue<ObjectWrapper<Polygon>> polygonQueue = new PriorityQueue<>();
 
     @Autowired
-    public Screen(WindowConfiguration windowConfiguration, Projection projection, Camera camera, Window window, World world) {
+    public Screen(WindowConfiguration windowConfiguration, Projection projection, Camera camera, ImageBean imageBean, World world) {
         this.windowConfiguration = windowConfiguration;
         this.projection = projection;
         this.camera = camera;
         this.world = world;
-        this.g2d = window.getImage().createGraphics();
+        this.g2d = imageBean.getImage().createGraphics();
 
         this.g2d.setFont(new Font("Arial", Font.PLAIN, 9));
     }

@@ -9,16 +9,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 @Component
 public final class Window extends JFrame {
 
-    private BufferedImage image;
-    private int[] pixels;
+    private final BufferedImage image;
+
+    private final WindowConfiguration configuration;
+    private final Listener listener;
 
     @Autowired
-    public Window(WindowConfiguration configuration, Listener listener) throws HeadlessException {
+    public Window(WindowConfiguration configuration, ImageBean imageBean, Listener listener) throws HeadlessException {
+        this.configuration = configuration;
+        this.image = imageBean.getImage();
+        this.listener = listener;
+    }
+
+    void init() {
         setSize(configuration.getWidth(), configuration.getHeight());
         setResizable(false);
         setTitle("Simple3D");
@@ -28,21 +35,10 @@ public final class Window extends JFrame {
 
         addKeyListener(listener);
 
-        image = new BufferedImage(configuration.getWidth(), configuration.getHeight(), BufferedImage.TYPE_INT_RGB);
-        pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
         if (configuration.isFullscreen()) {
             setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
             setUndecorated(true);
         }
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public int[] getPixels() {
-        return pixels;
     }
 
     void render() {

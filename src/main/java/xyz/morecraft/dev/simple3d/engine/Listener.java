@@ -19,19 +19,24 @@ public final class Listener implements KeyListener {
     private static final Logger log = LoggerFactory.getLogger(Listener.class);
 
     private final ControlConfiguration configuration;
+    private final ScreenShooter screenShooter;
     private final Camera camera;
 
     private final Set<Integer> keySet;
 
     @Autowired
-    public Listener(ControlConfiguration configuration, Camera camera) {
+    public Listener(ControlConfiguration configuration, ScreenShooter screenShooter, Camera camera) {
         this.configuration = configuration;
+        this.screenShooter = screenShooter;
         this.camera = camera;
         this.keySet = ConcurrentHashMap.newKeySet();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
+        if (Character.toUpperCase(e.getKeyChar()) == KeyEvent.VK_H) {
+            screenShooter.takeScreenShoot();
+        }
     }
 
     @Override

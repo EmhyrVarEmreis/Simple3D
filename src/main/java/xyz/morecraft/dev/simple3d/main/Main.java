@@ -16,6 +16,7 @@ public final class Main {
     }
 
     public void run() {
+        window.init();
         window.setVisible(true);
         renderThread.start();
     }
