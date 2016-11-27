@@ -6,30 +6,30 @@ import java.util.Map;
 
 public class World {
 
-    private Map<Point, Model> modelMap;
+    private Map<Point, PhongSphere> phongSphereMap;
 
     public World() {
         this(new HashMap<>());
     }
 
-    public Model addModel(Model model) {
-        return modelMap.put(model.getPosition(), model);
+    public PhongSphere addPhongSphere(PhongSphere phongSphere) {
+        return phongSphereMap.put(phongSphere.getPosition(), phongSphere);
     }
 
-    public World(Map<Point, Model> modelMap) {
-        this.modelMap = modelMap;
+    public World(Map<Point, PhongSphere> phongSphereMap) {
+        this.phongSphereMap = phongSphereMap;
     }
 
-    public Collection<Model> getModelList() {
-        return modelMap.values();
+    public Collection<PhongSphere> getPhongSpherelList() {
+        return phongSphereMap.values();
     }
 
-    public Map<Point, Model> getModelMap() {
-        return modelMap;
+    public Map<Point, PhongSphere> getPhongSphereMap() {
+        return phongSphereMap;
     }
 
-    public void setModelMap(Map<Point, Model> modelMap) {
-        this.modelMap = modelMap;
+    public void setPhongSphereMap(Map<Point, PhongSphere> phongSphereMap) {
+        this.phongSphereMap = phongSphereMap;
     }
 
 }

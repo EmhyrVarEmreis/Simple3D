@@ -5,8 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.ControlConfiguration;
-import xyz.morecraft.dev.simple3d.engine.tool.Camera;
-import xyz.morecraft.dev.simple3d.main.RenderThread;
+import xyz.morecraft.dev.simple3d.engine.tool.Settings;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,15 +19,15 @@ public final class Listener implements KeyListener {
 
     private final ControlConfiguration configuration;
     private final ScreenShooter screenShooter;
-    private final Camera camera;
+    private final Settings settings;
 
     private final Set<Integer> keySet;
 
     @Autowired
-    public Listener(ControlConfiguration configuration, ScreenShooter screenShooter, Camera camera) {
+    public Listener(ControlConfiguration configuration, ScreenShooter screenShooter, Settings settings) {
         this.configuration = configuration;
         this.screenShooter = screenShooter;
-        this.camera = camera;
+        this.settings = settings;
         this.keySet = ConcurrentHashMap.newKeySet();
     }
 
@@ -50,47 +49,81 @@ public final class Listener implements KeyListener {
     }
 
     public void update() {
-        //log.debug("{}", keySet.stream().map(Object::toString).collect(Collectors.joining(", ")));
         if (keySet.contains(KeyEvent.VK_ESCAPE)) {
             System.exit(0);
         }
         if (keySet.contains(KeyEvent.VK_W)) {
-            camera.getPosition().setZ(camera.getPosition().getZ() + configuration.getMovementSpeed());
+            settings.getCameraPosition().setZ(settings.getCameraPosition().getZ() + configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_S)) {
-            camera.getPosition().setZ(camera.getPosition().getZ() - configuration.getMovementSpeed());
+            settings.getCameraPosition().setZ(settings.getCameraPosition().getZ() - configuration.getMovementSpeed());
         }
         if (keySet.contains(KeyEvent.VK_A)) {
-            camera.getPosition().setX(camera.getPosition().getX() - configuration.getMovementSpeed());
+            settings.getCameraPosition().setX(settings.getCameraPosition().getX() - configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_D)) {
-            camera.getPosition().setX(camera.getPosition().getX() + configuration.getMovementSpeed());
+            settings.getCameraPosition().setX(settings.getCameraPosition().getX() + configuration.getMovementSpeed());
         }
         if (keySet.contains(KeyEvent.VK_Q)) {
-            camera.getPosition().setY(camera.getPosition().getY() - configuration.getMovementSpeed());
+            settings.getCameraPosition().setY(settings.getCameraPosition().getY() - configuration.getMovementSpeed());
         } else if (keySet.contains(KeyEvent.VK_E)) {
-            camera.getPosition().setY(camera.getPosition().getY() + configuration.getMovementSpeed());
+            settings.getCameraPosition().setY(settings.getCameraPosition().getY() + configuration.getMovementSpeed());
         }
-        if (keySet.contains(KeyEvent.VK_UP)) {
-            camera.setAngleX(camera.getAngleX() - configuration.getRotationSpeed());
-        } else if (keySet.contains(KeyEvent.VK_DOWN)) {
-            camera.setAngleX(camera.getAngleX() + configuration.getRotationSpeed());
+        if (keySet.contains(KeyEvent.VK_1)) {
+            if (isPlus()) {
+                settings.setKa(settings.getKa() + configuration.getKFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setKa(settings.getKa() - configuration.getKFactorChangeSpeed());
+            }
         }
-        if (keySet.contains(KeyEvent.VK_RIGHT)) {
-            camera.setAngleY(camera.getAngleY() - configuration.getRotationSpeed());
-        } else if (keySet.contains(KeyEvent.VK_LEFT)) {
-            camera.setAngleY(camera.getAngleY() + configuration.getRotationSpeed());
+        if (keySet.contains(KeyEvent.VK_2)) {
+            if (isPlus()) {
+                settings.setKd(settings.getKd() + configuration.getKFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setKd(settings.getKd() - configuration.getKFactorChangeSpeed());
+            }
         }
-        if (keySet.contains(KeyEvent.VK_COMMA)) {
-            camera.setAngleZ(camera.getAngleZ() - configuration.getRotationSpeed());
-        } else if (keySet.contains(KeyEvent.VK_PERIOD)) {
-            camera.setAngleZ(camera.getAngleZ() + configuration.getRotationSpeed());
+        if (keySet.contains(KeyEvent.VK_3)) {
+            if (isPlus()) {
+                settings.setKs(settings.getKs() + configuration.getKFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setKs(settings.getKs() - configuration.getKFactorChangeSpeed());
+            }
         }
-        if (keySet.contains(KeyEvent.VK_MINUS)) {
-            camera.setZoom(camera.getZoom() - configuration.getZoomSpeed());
-            RenderThread.NEEDS_RECALC = true;
-        } else if (keySet.contains(KeyEvent.VK_EQUALS)) {
-            camera.setZoom(camera.getZoom() + configuration.getZoomSpeed());
-            RenderThread.NEEDS_RECALC = true;
+        if (keySet.contains(KeyEvent.VK_4)) {
+            if (isPlus()) {
+                settings.setIa(settings.getIa() + configuration.getIFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setIa(settings.getIa() - configuration.getIFactorChangeSpeed());
+            }
         }
+        if (keySet.contains(KeyEvent.VK_5)) {
+            if (isPlus()) {
+                settings.setIp(settings.getIp() + configuration.getIFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setIp(settings.getIp() - configuration.getIFactorChangeSpeed());
+            }
+        }
+        if (keySet.contains(KeyEvent.VK_6)) {
+            if (isPlus()) {
+                settings.setN(settings.getN() + configuration.getNFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setN(settings.getN() - configuration.getNFactorChangeSpeed());
+            }
+        }
+        if (keySet.contains(KeyEvent.VK_7)) {
+            if (isPlus()) {
+                settings.setC(settings.getC() + configuration.getCFactorChangeSpeed());
+            } else if (isMinus()) {
+                settings.setC(settings.getC() - configuration.getCFactorChangeSpeed());
+            }
+        }
+    }
+
+    private boolean isPlus() {
+        return keySet.contains(KeyEvent.VK_EQUALS);
+    }
+
+    private boolean isMinus() {
+        return keySet.contains(KeyEvent.VK_MINUS);
     }
 
 }

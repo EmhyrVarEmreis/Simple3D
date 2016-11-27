@@ -1,16 +1,14 @@
 engine:
-  max-fps: 60
+  max-fps: 30
   max-control-refresh: 100
 window:
-  width: 800
+  width: 600
   height: 600
   fullscreen: false
   invert-y: true
 control:
-  rotation-speed: 0.25
   movement-speed: 0.05
-  zoom-speed: 0.005
-matrix:
-  field-of-view-angle: 50.0
-  distance-to-near-clipping-plane: 1.0
-  distance-to-far-clipping-plane: 100.0
+  k-factor-change-speed: 0.005
+  i-factor-change-speed: 0.005
+  n-factor-change-speed: 0.05
+  c-factor-change-speed: 0.05
