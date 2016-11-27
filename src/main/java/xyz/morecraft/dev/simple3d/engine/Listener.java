@@ -67,6 +67,21 @@ public final class Listener implements KeyListener {
         } else if (keySet.contains(KeyEvent.VK_E)) {
             settings.getCameraPosition().setY(settings.getCameraPosition().getY() + configuration.getMovementSpeed());
         }
+        if (keySet.contains(KeyEvent.VK_UP)) {
+            settings.getLightSourcePosition().setZ(settings.getLightSourcePosition().getZ() + configuration.getMovementSpeed());
+        } else if (keySet.contains(KeyEvent.VK_DOWN)) {
+            settings.getLightSourcePosition().setZ(settings.getLightSourcePosition().getZ() - configuration.getMovementSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_LEFT)) {
+            settings.getLightSourcePosition().setX(settings.getLightSourcePosition().getX() - configuration.getMovementSpeed());
+        } else if (keySet.contains(KeyEvent.VK_RIGHT)) {
+            settings.getLightSourcePosition().setX(settings.getLightSourcePosition().getX() + configuration.getMovementSpeed());
+        }
+        if (keySet.contains(KeyEvent.VK_PAGE_UP)) {
+            settings.getLightSourcePosition().setY(settings.getLightSourcePosition().getY() - configuration.getMovementSpeed());
+        } else if (keySet.contains(KeyEvent.VK_PAGE_DOWN)) {
+            settings.getLightSourcePosition().setY(settings.getLightSourcePosition().getY() + configuration.getMovementSpeed());
+        }
         if (keySet.contains(KeyEvent.VK_1)) {
             if (isPlus()) {
                 settings.setKa(settings.getKa() + configuration.getKFactorChangeSpeed());

@@ -32,7 +32,7 @@ public class Settings {
         this.cameraPosition = cameraPosition;
     }
 
-    public Point getLightSource() {
+    public Point getLightSourcePosition() {
         return lightSource;
     }
 

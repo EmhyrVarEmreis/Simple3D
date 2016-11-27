@@ -97,7 +97,7 @@ public final class Screen {
 
         Vector n = new Vector(spherePosition, pointOnSphere).normalize();
         Vector v = new Vector(pointOnSphere, settings.getCameraPosition()).normalize();
-        Vector l = new Vector(pointOnSphere, settings.getLightSource());
+        Vector l = new Vector(pointOnSphere, settings.getLightSourcePosition());
         double rr = l.norma();
         l = l.normalize();
         Vector r = (n.mul(2)).mul(n.dotProduct(l)).dif(l).normalize();
@@ -111,7 +111,7 @@ public final class Screen {
 
     private void drawInfo() {
         g2d.setColor(INFO_BACKGROUND);
-        g2d.fillRect(0, 0, 125, 150);
+        g2d.fillRect(0, 0, 125, 190);
         g2d.setColor(Color.RED);
         g2d.drawString("Camera:", 5, 35);
         g2d.drawString("x = " + settings.getCameraPosition().getX(), 10, 45);
@@ -125,6 +125,10 @@ public final class Screen {
         g2d.drawString("ks = " + settings.getKs(), 10, 125);
         g2d.drawString("n = " + settings.getN(), 10, 135);
         g2d.drawString("c = " + settings.getC(), 10, 145);
+        g2d.drawString("Light:", 5, 155);
+        g2d.drawString("x = " + settings.getLightSourcePosition().getX(), 10, 165);
+        g2d.drawString("y = " + settings.getLightSourcePosition().getY(), 10, 175);
+        g2d.drawString("z = " + settings.getLightSourcePosition().getZ(), 10, 185);
     }
 
 }
