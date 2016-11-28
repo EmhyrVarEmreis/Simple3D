@@ -53,7 +53,6 @@ public final class Screen {
         );
     }
 
-    @SuppressWarnings("Duplicates")
     private void drawPhongSphere(PhongSphere phongSphere) {
         Double intensityMax = Double.MIN_VALUE;
         Double intensityMin = Double.MAX_VALUE;
@@ -64,15 +63,14 @@ public final class Screen {
             for (int y = 0; y < windowConfiguration.getHeight(); y++) {
                 Double intensity = getLightning(phongSphere.getPosition(), phongSphere.intersection(settings.getCameraPosition(), meshPoints[y][x]));
                 if (intensity != null) {
-                    if (intensity > intensityMax) {
-                        intensityMax = intensity;
-                    }
+                    intensityBuffer[x][y] = intensity;
                     if (intensity < intensityMin) {
                         intensityMin = intensity;
                     }
-
+                    if (intensity > intensityMax) {
+                        intensityMax = intensity;
+                    }
                 }
-                intensityBuffer[x][y] = intensity;
             }
         }
         for (int x = 0; x < windowConfiguration.getWidth(); x++) {
@@ -91,16 +89,15 @@ public final class Screen {
     }
 
     private Double getLightning(Point spherePosition, Point pointOnSphere) {
-        if (pointOnSphere == null) {
+        if (pointOnSphere == null || spherePosition == null) {
             return null;
         }
-
+        Vector l = new Vector(pointOnSphere, settings.getLightSourcePosition());
         Vector n = new Vector(spherePosition, pointOnSphere).normalize();
         Vector v = new Vector(pointOnSphere, settings.getCameraPosition()).normalize();
-        Vector l = new Vector(pointOnSphere, settings.getLightSourcePosition());
         double rr = l.norma();
         l = l.normalize();
-        Vector r = (n.mul(2)).mul(n.dotProduct(l)).dif(l).normalize();
+        Vector r = n.mul(2).mul(n.dotProduct(l)).dif(l).normalize();
         return settings.getIa() * settings.getKa() + settings.getIp() * (settings.getKd() * Math.max(n.dotProduct(l), 0) + settings.getKs() * Math.pow(Math.max(r.dotProduct(v), 0), settings.getN())) / (settings.getC() + rr);
     }
 

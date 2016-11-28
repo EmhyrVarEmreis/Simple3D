@@ -7,15 +7,20 @@ import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.EngineConfiguration;
 import xyz.morecraft.dev.simple3d.engine.Listener;
 import xyz.morecraft.dev.simple3d.engine.Screen;
+import xyz.morecraft.dev.simple3d.engine.ScreenShooter;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public final class RenderThread implements Runnable {
 
+    public static final AtomicBoolean TAKE_SCREEN_SHOOT = new AtomicBoolean(false);
+
     private static final Logger log = LoggerFactory.getLogger(RenderThread.class);
 
     private final EngineConfiguration configuration;
+    private final ScreenShooter screenShooter;
     private final Listener listener;
     private final Screen screen;
     private final Window window;
@@ -25,8 +30,9 @@ public final class RenderThread implements Runnable {
     private boolean isRunning;
 
     @Autowired
-    public RenderThread(EngineConfiguration configuration, Listener listener, Screen screen, Window window) {
+    public RenderThread(EngineConfiguration configuration, ScreenShooter screenShooter, Listener listener, Screen screen, Window window) {
         this.configuration = configuration;
+        this.screenShooter = screenShooter;
         this.listener = listener;
         this.screen = screen;
         this.window = window;
@@ -59,6 +65,10 @@ public final class RenderThread implements Runnable {
             if (now - lastTime >= nsFps) {
                 lastTime = now;
                 screen.update();
+                if (TAKE_SCREEN_SHOOT.get()) {
+                    TAKE_SCREEN_SHOOT.set(false);
+                    screenShooter.takeScreenShoot();
+                }
             }
             if (now - lastTimeKey >= nsKey) {
                 lastTimeKey = now;

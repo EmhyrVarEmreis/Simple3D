@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.morecraft.dev.simple3d.configuration.ControlConfiguration;
 import xyz.morecraft.dev.simple3d.engine.tool.Settings;
+import xyz.morecraft.dev.simple3d.main.RenderThread;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +19,6 @@ public final class Listener implements KeyListener {
     private static final Logger log = LoggerFactory.getLogger(Listener.class);
 
     private final ControlConfiguration configuration;
-    private final ScreenShooter screenShooter;
     private final Settings settings;
 
     private final Set<Integer> keySet;
@@ -26,7 +26,6 @@ public final class Listener implements KeyListener {
     @Autowired
     public Listener(ControlConfiguration configuration, ScreenShooter screenShooter, Settings settings) {
         this.configuration = configuration;
-        this.screenShooter = screenShooter;
         this.settings = settings;
         this.keySet = ConcurrentHashMap.newKeySet();
     }
@@ -34,7 +33,7 @@ public final class Listener implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         if (Character.toUpperCase(e.getKeyChar()) == KeyEvent.VK_H) {
-            screenShooter.takeScreenShoot();
+            RenderThread.TAKE_SCREEN_SHOOT.set(true);
         }
     }
 

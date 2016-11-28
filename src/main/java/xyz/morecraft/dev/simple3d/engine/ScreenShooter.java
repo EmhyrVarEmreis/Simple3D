@@ -20,13 +20,13 @@ public class ScreenShooter {
     }
 
     public void takeScreenShoot() {
-        new Thread(() -> {
+        //    new Thread(() -> {
             try {
                 IO.saveImagePng(IO.copyImage(imageBean.getImage()), System.currentTimeMillis() + ".png");
             } catch (Exception e) {
                 log.error("Error occurred during taking screenshot", e);
             }
-        }).start();
+        //   }).start();
     }
 
 }
